@@ -28,6 +28,7 @@ public class MoveObject : MonoBehaviour
     void Update()
     {
         selectionCircle.transform.Rotate(Vector3.forward * 90f * Time.deltaTime);
+        
         if (isSelected)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -39,15 +40,22 @@ public class MoveObject : MonoBehaviour
                 mousePos = Input.mousePosition;
                 mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
+                //targetGameObject.transform.position = new Vector3(
+                //    transform.position.x,
+                //    0.5f,
+                //    transform.position.z);
+
                 targetGameObject.transform.position = new Vector3(
-                    transform.position.x,
+                    Mathf.Clamp(transform.position.x, 0.0f, 30.0f),
                     0.5f,
-                    transform.position.z);
+                    Mathf.Clamp(transform.position.z, 0.0f, 30.0f)
+                    );
             }
             selectionCircle.transform.position = new Vector3(
-                transform.position.x,
-                0.1f,
-                transform.position.z);
+                    Mathf.Clamp(transform.position.x, 0.0f, 30.0f),
+                    0.1f,
+                    Mathf.Clamp(transform.position.z, 0.0f, 30.0f)
+                    );
             var maxScale = Mathf.Max(targetGameObject.transform.localScale.x, targetGameObject.transform.localScale.z);
             selectionCircle.transform.localScale = Vector3.one * (maxScale * 1.3f);
         }
