@@ -14,6 +14,7 @@ public class MouseScript : MonoBehaviour
     public LevelManupulator manipulatorOption = LevelManupulator.Create;
     [HideInInspector]
     public MeshRenderer mr;
+    
 
     public ManagerScript ms;
     public ObjectEditor oe;
@@ -87,9 +88,9 @@ public class MouseScript : MonoBehaviour
             mousePos = currentCamera.ScreenToWorldPoint(Input.mousePosition);
 
             transform.position = new Vector3(
-                Mathf.Clamp(mousePos.x, -50 + testLevel.transform.position.x, 50 + testLevel.transform.position.x),
+                Mathf.Clamp(mousePos.x, -500 + testLevel.transform.position.x, 500 + testLevel.transform.position.x),
                 0.50f,
-                Mathf.Clamp(mousePos.z, -50 + testLevel.transform.position.z, 50 + testLevel.transform.position.z));
+                Mathf.Clamp(mousePos.z, -500 + testLevel.transform.position.z, 500 + testLevel.transform.position.z));
         }
 
         if (ms.uiController.currrentCamera == null)
