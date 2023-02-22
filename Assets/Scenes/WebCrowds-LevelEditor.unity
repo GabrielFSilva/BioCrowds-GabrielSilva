@@ -2195,6 +2195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetGameObject: {fileID: 0}
+  editorUIController: {fileID: 167044870}
   isSelected: 0
   selectionCircle: {fileID: 263262261}
 --- !u!114 &163776249

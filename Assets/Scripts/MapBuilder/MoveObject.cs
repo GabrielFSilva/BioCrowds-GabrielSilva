@@ -6,6 +6,7 @@ public class MoveObject : MonoBehaviour
 {
     //[HideInInspector]
     public GameObject targetGameObject;
+    public LevelEditorUIController editorUIController;
 
 
     //[HideInInspector]
@@ -28,15 +29,21 @@ public class MoveObject : MonoBehaviour
     void Update()
     {
         selectionCircle.transform.Rotate(Vector3.forward * 90f * Time.deltaTime);
+
         
+
         if (isSelected)
         {
+            Vector3 _terrainSize = editorUIController.mainSimulationScenario.terrain.terrainData.size;
+            Vector3 _parentPosition = targetGameObject.transform.parent.position;
+
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 CancelMoveObject();
             } 
             else
             {
+                
                 mousePos = Input.mousePosition;
                 mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
@@ -46,15 +53,15 @@ public class MoveObject : MonoBehaviour
                 //    transform.position.z);
 
                 targetGameObject.transform.position = new Vector3(
-                    Mathf.Clamp(transform.position.x, 0.0f, 30.0f),
+                    Mathf.Clamp(transform.position.x, _parentPosition.x, _parentPosition.x + _terrainSize.x),
                     0.5f,
-                    Mathf.Clamp(transform.position.z, 0.0f, 30.0f)
+                    Mathf.Clamp(transform.position.z, _parentPosition.z, _parentPosition.z + _terrainSize.z)
                     );
             }
             selectionCircle.transform.position = new Vector3(
-                    Mathf.Clamp(transform.position.x, 0.0f, 30.0f),
+                    Mathf.Clamp(transform.position.x, _parentPosition.x, _parentPosition.x + _terrainSize.x),
                     0.1f,
-                    Mathf.Clamp(transform.position.z, 0.0f, 30.0f)
+                    Mathf.Clamp(transform.position.z, _parentPosition.z, _parentPosition.z + _terrainSize.z)
                     );
             var maxScale = Mathf.Max(targetGameObject.transform.localScale.x, targetGameObject.transform.localScale.z);
             selectionCircle.transform.localScale = Vector3.one * (maxScale * 1.3f);
