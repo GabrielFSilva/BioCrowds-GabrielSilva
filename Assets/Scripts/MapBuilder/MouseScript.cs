@@ -49,14 +49,19 @@ public class MouseScript : MonoBehaviour
         for (int i = 0; i < ms.uiController.cameras.Count; i++)
         {
             Camera camera = ms.uiController.cameras[i];
+            if (!camera.enabled)
+                continue;
             // GameObject testLevel = ms.uiController.testLevels[i];
 
             var view = camera.ScreenToViewportPoint(Input.mousePosition);
             //Debug.Log(view);
+
+            //if (camera.rect.Contains(view))
+            //    currentCamera = camera;
+
             var isOutside = view.x < 0 || view.x > 1 || view.y < 0 || view.y > 1;
             if (isOutside)
                 continue;
-
             ray = camera.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit[] hits = Physics.RaycastAll(ray);
